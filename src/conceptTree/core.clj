@@ -14,7 +14,7 @@
 (deftemplate search "resources/templates/index.html"
   [concept]
 	;;[:div#conceptTreeStr] (content (make-con-t-for-con concept)))
-	[:div#conceptTreeStr] (content (ret-con-t-from-mcraw-links-for-con concept)))
+	[:div#conceptTreeStr] (content (retrieve-concept-tree-metacrawler concept)))
 
 (def my-app-handler
 	(app 
