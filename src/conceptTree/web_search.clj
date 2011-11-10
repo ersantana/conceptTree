@@ -13,13 +13,13 @@
 			(java.io.InputStreamReader. stream))]
 			(apply str (line-seq buf)))))
 
-(defn ret-links-from-mcraw-for-con [m-con]
+(defn ret-links-from-mcraw [m-con]
 	(let [compl "is+a"]
 		(re-seq #"(?<=<a class=\"resultTitle\" data-icl-coi=\"540\" data-icl-cop=\"results-main\" href=\")(.*?)(?= target=\"_blank\"\>)" 
   		(fetch-url (str "http://www.metacrawler.com/info.metac.test.c11/search/web?fcoid=485&fpid=1&qexact=" m-con compl "&qlang=en")))))
 
-(defn ret-con-t-from-mcraw-links-for-con [m-con]
-  (for [link (ret-links-from-mcraw-for-con m-con)]
+(defn retrieve-concept-tree-metacrawler [m-con]
+  (for [link (ret-links-from-mcraw m-con)]
 		(let [inner-link (nth (.split (nth link 0) "ru=") 1) unallowed-symbols ",|\\.|:|;|_|+|=|&|#|$|%|!|@"]
 			(re-seq
 				(java.util.regex.Pattern/compile (str "(?<=" m-con " is a " ")(.*?)(?=[" unallowed-symbols "])") java.util.regex.Pattern/CASE_INSENSITIVE)
